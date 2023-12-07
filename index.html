@@ -86,9 +86,15 @@
       // the canvas DOM size and WebGL render target sizes yourself.
       // config.matchWebGLToCanvasSize = false;
 
+      function setAspectRatio(width, height) {
+        var aspectRatio = (width / height) * 100 + "%";
+        canvas.style.width = width + "px";
+        canvas.style.height = height + "px";
+        canvas.style.paddingBottom = aspectRatio;
+      }
+
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         // Mobile device style: fill the whole browser client area with the game canvas:
-
         var meta = document.createElement("meta");
         meta.name = "viewport";
         meta.content =
@@ -101,14 +107,11 @@
         // performance, uncomment the following line:
         // config.devicePixelRatio = 1;
 
-        //unityShowBanner('WebGL builds are not supported on mobile devices.');
-        canvas.style.width = "auto";
-        canvas.style.height = "100%";
+        // unityShowBanner('WebGL builds are not supported on mobile devices.');
+        setAspectRatio(9, 16);
       } else {
         // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
-
-        canvas.style.width = "360px";
-        canvas.style.height = "640px";
+        setAspectRatio(9, 16);
       }
 
       loadingBar.style.display = "block";
